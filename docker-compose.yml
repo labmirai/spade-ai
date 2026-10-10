@@ -1,0 +1,47 @@
+services:
+  web:
+    build: ./spade-ai-web
+    restart: unless-stopped
+    environment:
+      HOSTNAME: ${WEB_HOST}
+      PORT: ${WEB_PORT}
+    ports:
+      - "${WEB_BIND}:${WEB_PORT}:${WEB_PORT}"
+
+  api:
+    build: ./spade-ai-backend
+    restart: unless-stopped
+    environment:
+      DEBUG: ${DEBUG}
+      HOST: ${API_HOST}
+      PORT: ${API_PORT}
+      DATABASE_URL: ${DATABASE_URL}
+      DATABASE_SSL: ${DATABASE_SSL}
+      SECRET_KEY: ${SECRET_KEY}
+      ALGORITHM: ${ALGORITHM}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES}
+      REFRESH_TOKEN_EXPIRE_DAYS: ${REFRESH_TOKEN_EXPIRE_DAYS}
+      CORS_ORIGINS: ${CORS_ORIGINS}
+    ports:
+      - "${API_BIND}:${API_PORT}:${API_PORT}"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pgdata:

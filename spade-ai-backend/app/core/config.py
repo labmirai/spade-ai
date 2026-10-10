@@ -1,6 +1,7 @@
 import json
 from typing import List
 
+from pydantic import field_validator
 from pydantic_settings import BaseSettings
 
 
@@ -18,6 +19,7 @@ class Settings(BaseSettings):
     CORS_ORIGINS: List[str] = ["*"]
 
     DATABASE_URL: str
+    DATABASE_SSL: bool = True
 
     # JWT Security
     SECRET_KEY: str
@@ -29,11 +31,18 @@ class Settings(BaseSettings):
         env_file = ".env"
         case_sensitive = True
 
+    @field_validator("CORS_ORIGINS", mode="before")
+    @classmethod
+    def parse_cors_origins(cls, value):
+        if isinstance(value, str):
+            value = value.strip()
+            if value.startswith("["):
+                return json.loads(value)
+            return [item.strip() for item in value.split(",") if item.strip()]
+        return value
+
     @property
     def cors_origins_list(self) -> List[str]:
-        """Parse CORS origins from environment variable"""
-        if isinstance(self.CORS_ORIGINS, str):
-            return json.loads(self.CORS_ORIGINS)
         return self.CORS_ORIGINS
 
 

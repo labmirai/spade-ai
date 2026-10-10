@@ -1,0 +1,39 @@
+server {
+    listen 80;
+    server_name ${WEB_DOMAIN} ${API_DOMAIN};
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name ${WEB_DOMAIN};
+
+    ssl_certificate     ${WEB_SSL_CERTIFICATE};
+    ssl_certificate_key ${WEB_SSL_CERTIFICATE_KEY};
+
+    location / {
+        proxy_pass http://${WEB_BIND}:${WEB_PORT};
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name ${API_DOMAIN};
+
+    ssl_certificate     ${API_SSL_CERTIFICATE};
+    ssl_certificate_key ${API_SSL_CERTIFICATE_KEY};
+
+    location / {
+        proxy_pass http://${API_BIND}:${API_PORT};
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}

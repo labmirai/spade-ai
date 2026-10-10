@@ -25,9 +25,7 @@ engine = create_async_engine(
     pool_size=5,
     max_overflow=10,
     echo=settings.DEBUG,
-    connect_args={
-        "ssl": ssl.create_default_context(),
-    },
+    connect_args={"ssl": ssl.create_default_context()} if settings.DATABASE_SSL else {},
 )
 
 AsyncSessionLocal = async_sessionmaker(
