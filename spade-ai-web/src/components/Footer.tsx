@@ -26,7 +26,7 @@ export default function Footer() {
               for Crop Recommendation.
             </p>
             <p className="text-xs font-sans text-earth-500">
-              Jashore University of Science and Technology, Bangladesh
+              Jashore University of Science and Technology and the University of Dhaka
             </p>
           </div>
 
@@ -106,7 +106,7 @@ export default function Footer() {
             &copy; {currentYear} SPADE-AI Research Project. All rights reserved.
           </p>
           <p className="text-xs font-sans text-earth-600">
-            Jashore University of Science and Technology, Jashore, Bangladesh
+            Jashore University of Science and Technology and the University of Dhaka
           </p>
         </div>
 

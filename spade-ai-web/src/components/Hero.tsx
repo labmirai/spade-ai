@@ -3,9 +3,13 @@ export default function Hero() {
     <section id="home" className="section-bg border-b border-earth-200">
       <div className="section-container">
 
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 section-spacing">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 section-spacing">
           <span className="section-label">
             Jashore University of Science and Technology
+          </span>
+          <span className="text-earth-300" aria-hidden="true">·</span>
+          <span className="section-label">
+            University of Dhaka
           </span>
         </div>
 

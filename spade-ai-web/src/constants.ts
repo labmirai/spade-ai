@@ -7,21 +7,78 @@ export const NAV_LINKS = [
 ];
 
 // Team
-export const TEAM_PI = {
-  role: "Principal Investigator",
-  name: "Prof. Dr. Md. Alam Hossain",
-  email: "pi.spade.ai@gmail.com"
-};
-
-export const TEAM_COPI = {
-  role: "Co-Principal Investigator",
-  name: "Dr. A F M Shahab Uddin",
-  email: "copi.spade.ai@gmail.com"
-};
-
-export const TEAM_ASSISTANTS = [
-  { name: "Name 1", email: "ra1.spade.ai@gmail.com" },
-  { name: "Name 2", email: "ra2.spade.ai@gmail.com" },
+export const TEAM = [
+  {
+    name: "Prof. Dr. Md. Alam Hossain",
+    role: "Principal Investigator",
+    credential: "Professor, PhD",
+    affiliation: "Department of Computer Science and Engineering, Jashore University of Science and Technology",
+    focus: "",
+    image: "",
+    email: "pi.spade.ai@gmail.com",
+    links: [] as { label: string; href: string }[],
+  },
+  {
+    name: "Dr. A F M Shahab Uddin",
+    role: "Co-Principal Investigator",
+    credential: "PhD",
+    affiliation: "Department of Computer Science and Engineering, Jashore University of Science and Technology",
+    focus: "Deep learning, data augmentation, image restoration, image quality assessment",
+    image: "",
+    email: "copi.spade.ai@gmail.com",
+    links: [] as { label: string; href: string }[],
+  },
+  {
+    name: "Dr. Md. Mamun-Or-Rashid",
+    role: "Co-Principal Investigator",
+    credential: "Professor",
+    affiliation: "Department of Computer Science and Engineering, University of Dhaka",
+    focus: "Sensor networks, IoT",
+    image: "/team/mamun.jpg",
+    email: "",
+    links: [
+      { label: "Faculty profile", href: "https://www.du.ac.bd/faculty/faculty_details/CSE/1769" },
+      { label: "Google Scholar", href: "https://scholar.google.com/citations?user=OUanlWAAAAAJ&hl=en" },
+    ],
+  },
+  {
+    name: "Abdullah Ibne Hanif Arean",
+    role: "Consultant",
+    credential: "MSc student",
+    affiliation: "Department of Computer Science and Engineering, University of Dhaka",
+    focus: "",
+    image: "/team/arean.jpg",
+    email: "",
+    links: [
+      { label: "Website", href: "https://abdullaharean.com/" },
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/abdullaharean" },
+    ],
+  },
+  {
+    name: "Md. Emon Khan",
+    role: "Research Assistant",
+    credential: "MSc student",
+    affiliation: "Department of Computer Science and Engineering, University of Dhaka",
+    focus: "",
+    image: "/team/emon.jpg",
+    email: "",
+    links: [
+      { label: "GitHub", href: "https://github.com/ignite312" },
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/sajjademon/" },
+    ],
+  },
+  {
+    name: "Asfin Jannat Shamsi",
+    role: "Research Assistant",
+    credential: "MSc student",
+    affiliation: "Department of Computer Science and Engineering, University of Dhaka",
+    focus: "",
+    image: "/team/shamsi.png",
+    email: "",
+    links: [
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/asfinjannatshamsi" },
+    ],
+  },
 ];
 
 // Impact - ICSETEP
