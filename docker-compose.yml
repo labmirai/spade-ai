@@ -22,9 +22,9 @@ services:
       ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES}
       REFRESH_TOKEN_EXPIRE_DAYS: ${REFRESH_TOKEN_EXPIRE_DAYS}
       CORS_ORIGINS: ${CORS_ORIGINS}
-      UPLOAD_DIR: ${UPLOAD_DIR}
+      UPLOAD_DIR: ${UPLOAD_DIR:-/app/uploads}
     volumes:
-      - uploads:${UPLOAD_DIR}
+      - uploads:${UPLOAD_DIR:-/app/uploads}
     ports:
       - "${API_BIND}:${API_PORT}:${API_PORT}"
     depends_on:
