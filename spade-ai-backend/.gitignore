@@ -68,6 +68,9 @@ pip-delete-this-directory.txt
 # Poetry
 poetry.lock
 
+# Uploaded soil photos
+uploads/
+
 # Other
 .vscode/settings.json
 *.log

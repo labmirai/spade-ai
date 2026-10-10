@@ -12,7 +12,7 @@ from app.core.config import settings
 from app.core.database import Base, get_clean_database_url
 
 # Import all models here so Alembic can detect them
-from app.models import user  # noqa: F401
+from app.models import soil_sample, user  # noqa: F401
 
 # Alembic Config object
 config = context.config

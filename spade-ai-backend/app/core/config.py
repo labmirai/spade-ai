@@ -20,6 +20,7 @@ class Settings(BaseSettings):
 
     DATABASE_URL: str
     DATABASE_SSL: bool = True
+    UPLOAD_DIR: str = "uploads"
 
     # JWT Security
     SECRET_KEY: str

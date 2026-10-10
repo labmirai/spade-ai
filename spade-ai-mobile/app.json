@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "SPADE-AI",
+    "slug": "spade-ai",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "org.labmirai.spadeai",
+      "infoPlist": {
+        "NSCameraUsageDescription": "SPADE-AI uses the camera to photograph soil."
+      }
+    },
+    "android": {
+      "package": "org.labmirai.spadeai",
+      "usesCleartextTraffic": true,
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-secure-store",
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "SPADE-AI uses the camera to photograph soil."
+        }
+      ]
+    ]
+  }
+}
