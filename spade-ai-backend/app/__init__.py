@@ -1,0 +1,1 @@
+"""Spade AI Backend Application"""

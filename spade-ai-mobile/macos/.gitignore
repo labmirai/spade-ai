@@ -1,0 +1,18 @@
+# Flutter-related
+**/Flutter/ephemeral/
+**/Pods/
+**/Podfile.lock
+
+# Xcode-related
+**/dgph
+**/xcuserdata/
+**/DerivedData/
+
+# Build outputs
+build/
+.build/
+*.app/
+
+# CocoaPods
+Pods/
+Podfile.lock

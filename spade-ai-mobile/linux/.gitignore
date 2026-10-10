@@ -1,0 +1,14 @@
+flutter/ephemeral/
+build/
+.build/
+
+# Linux build artifacts
+*.so
+*.a
+*.o
+*.d
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+compile_commands.json

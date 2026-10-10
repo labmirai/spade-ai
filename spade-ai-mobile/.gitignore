@@ -1,0 +1,116 @@
+# OS / System files
+.DS_Store
+Thumbs.db
+
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+*.code-workspace
+
+
+# Dart / Flutter core
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+
+# Build outputs (ALL platforms)
+build/
+**/build/
+
+# Coverage reports
+coverage/
+
+
+# Generated Dart files
+*.g.dart
+*.config.dart
+
+
+# Temporary / backup files
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+*.orig
+
+
+# Android
+android/.gradle/
+android/app/build/
+android/local.properties
+android/key.properties
+
+
+# iOS / macOS
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/ephemeral/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Runner/GoogleService-Info.plist
+
+macos/Pods/
+macos/Flutter/ephemeral/
+
+# Xcode user data
+**/xcuserdata/
+*.xcworkspace/xcuserdata/
+
+
+# Linux
+linux/flutter/ephemeral/
+
+
+# Windows
+windows/flutter/ephemeral/
+
+
+# Flutter Version Manager
+.fvm/
+
+# FlutterFire CLI cache
+.flutterfire/
+
+# Generated plugin registrants
+**/GeneratedPluginRegistrant.*
+
+# Dart Code Metrics
+.dart_code_metrics/
+
+# Firebase test labs output
+run_tests.json
+
+
+# Web
+web/build/
+
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+*.env
+
+
+# Firebase / backend secrets
+android/app/google-services.json
+
+
+# Generated documentation (optional)
+DEVELOPMENT_GUIDE.md
+PROJECT_STRUCTURE.md
+QUICK_START.md
+
+
+# Symbol / obfuscation outputs
+app.*.symbols
+app.*.map.json
