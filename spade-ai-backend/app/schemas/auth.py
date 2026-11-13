@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 from datetime import datetime
 from app.models.user import UserRole
 
@@ -8,6 +8,14 @@ class UserRegister(BaseModel):
     email: EmailStr
     phone: str | None = None
     password: str
+
+
+class UserCreate(BaseModel):
+    name: str = Field(min_length=1, max_length=100)
+    email: EmailStr
+    phone: str | None = Field(default=None, max_length=20)
+    password: str = Field(min_length=8, max_length=72)
+    role: UserRole = UserRole.USER
 
 
 class UserLogin(BaseModel):

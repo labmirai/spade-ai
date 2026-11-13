@@ -4,6 +4,14 @@ from jose import jwt
 from app.core.config import settings
 import bcrypt
 
+def password_error(password: str, minimum: int) -> str | None:
+    if len(password) < minimum:
+        return f"Password must be at least {minimum} characters"
+    if len(password.encode("utf-8")) > 72:
+        return "Password must be at most 72 bytes"
+    return None
+
+
 def hash_password(password: str) -> str:
     return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
 

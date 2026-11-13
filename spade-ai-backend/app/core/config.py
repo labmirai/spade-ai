@@ -1,8 +1,8 @@
 import json
-from typing import List
+from typing import Annotated, List
 
 from pydantic import field_validator
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, NoDecode
 
 
 class Settings(BaseSettings):
@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     PORT: int = 8000
 
     # CORS
-    CORS_ORIGINS: List[str] = ["*"]
+    CORS_ORIGINS: Annotated[List[str], NoDecode] = ["*"]
 
     DATABASE_URL: str
     DATABASE_SSL: bool = True
@@ -27,6 +27,14 @@ class Settings(BaseSettings):
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
+
+    # One-time import folder. The API reads map documents from Postgres, then deletes these files.
+    MAP_DATA_DIR: str = "data/jessore"
+
+    # Created on startup when both are set and the email is not already registered.
+    ADMIN_NAME: str = "SPADE Admin"
+    ADMIN_EMAIL: str = ""
+    ADMIN_PASSWORD: str = ""
 
     class Config:
         env_file = ".env"

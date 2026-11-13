@@ -27,17 +27,29 @@ uvicorn app.main:app --reload
 | `APP_NAME` | No | `Spade AI Backend` |
 | `PORT` | No | `8000` |
 | `CORS_ORIGINS` | No | `["http://localhost:3000", "http://localhost:8081"]` |
+| `MAP_DATA_DIR` | No | `data/jessore` (one-time import, then deleted) |
+| `ADMIN_EMAIL` | No | empty (skip admin bootstrap) |
+| `ADMIN_PASSWORD` | No | empty (skip admin bootstrap) |
+| `ADMIN_NAME` | No | `SPADE Admin` |
 
 ## API Endpoints
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| POST | `/api/v1/auth/register` | Register new user |
-| POST | `/api/v1/auth/login` | User login |
+| POST | `/api/v1/auth/register` | Register a normal user (mobile app) |
+| POST | `/api/v1/auth/login` | Sign in with email and password |
+| POST | `/api/v1/users` | Administrator creates an account |
+| GET | `/api/v1/users` | Administrator lists accounts |
 | POST | `/api/v1/auth/refresh` | Refresh access token |
 | GET | `/api/v1/auth/me` | Get current user |
-| GET | `/api/v1/users` | List all users |
 | GET | `/api/v1/health` | Health check |
+| GET | `/api/v1/maps/jessore/summary` | Jashore nutrient summary (admin) |
+| GET | `/api/v1/maps/jessore/plan` | Field collection plan (admin) |
+| GET | `/api/v1/maps/jessore/layers/{layer}` | GeoJSON layer `districts`, `upazilas`, or `points` (admin) |
+
+Set `ADMIN_EMAIL` and `ADMIN_PASSWORD` (at least 8 characters) before starting the API. On startup the backend creates that account as an administrator if the email is not already registered. The website at `/maps/jessore` loads these datasets through the API after that administrator signs in.
+
+Map documents are stored in the `map_datasets` table. On startup the API copies `data/jessore` into that table, checks the file checksum, and deletes the files. Requests never read the files. Anonymous and non-admin callers get no document body.
 
 ## User Model
 

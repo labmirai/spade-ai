@@ -71,6 +71,9 @@ poetry.lock
 # Uploaded soil photos
 uploads/
 
+# One-time Jashore map import. Not served by the API; loaded into Postgres on startup.
+data/jessore/
+
 # Other
 .vscode/settings.json
 *.log

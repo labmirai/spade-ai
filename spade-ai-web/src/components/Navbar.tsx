@@ -1,12 +1,38 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NAV_LINKS } from '@/constants';
+import { fetchMe, logout, type SessionUser } from '@/lib/api';
 
 export default function Navbar() {
-  const [isOpen,  setIsOpen ] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
+  const [user, setUser] = useState<SessionUser | null>(null);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchMe()
+      .then((next) => {
+        if (!cancelled) setUser(next);
+      })
+      .catch(() => {
+        if (!cancelled) setUser(null);
+      })
+      .finally(() => {
+        if (!cancelled) setReady(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  function signOut() {
+    logout();
+    setUser(null);
+    setIsOpen(false);
+  }
 
   return (
     <nav className="sticky top-0 z-50 bg-earth-900 border-b border-earth-700">
@@ -41,6 +67,37 @@ export default function Navbar() {
               />
             </Link>
           ))}
+          {ready && user && (
+            <Link
+              href="/maps/jessore"
+              className="relative inline-block px-3 py-1 text-nav font-sans no-underline transition-colors duration-150"
+              style={{ color: hovered === 'Jessore data' ? '#ffffff' : '#9ca3af' }}
+              onMouseEnter={() => setHovered('Jessore data')}
+              onMouseLeave={() => setHovered(null)}
+            >
+              Jessore data
+              <span
+                className="absolute bottom-0 left-3 right-3 h-px bg-white transition-transform duration-200 origin-left"
+                style={{ transform: hovered === 'Jessore data' ? 'scaleX(1)' : 'scaleX(0)' }}
+              />
+            </Link>
+          )}
+          {ready && (user ? (
+            <button
+              type="button"
+              onClick={signOut}
+              className="ml-2 inline-block px-3 py-1 text-nav font-sans text-white border border-earth-600 bg-transparent cursor-pointer"
+            >
+              Sign out
+            </button>
+          ) : (
+            <Link
+              href="/login"
+              className="ml-2 inline-block px-3 py-1 text-nav font-sans no-underline text-white border border-earth-600"
+            >
+              Sign in
+            </Link>
+          ))}
         </div>
 
         {/* Hamburger */}
@@ -73,6 +130,32 @@ export default function Navbar() {
                 }`}
               >
                 {link.name}
+              </Link>
+            ))}
+            {ready && user && (
+              <Link
+                href="/maps/jessore"
+                onClick={() => setIsOpen(false)}
+                className="text-nav font-sans text-earth-300 no-underline py-2.5 border-t border-earth-700"
+              >
+                Jessore data
+              </Link>
+            )}
+            {ready && (user ? (
+              <button
+                type="button"
+                onClick={signOut}
+                className="text-nav font-sans text-white text-left bg-transparent border-none cursor-pointer py-2.5"
+              >
+                Sign out
+              </button>
+            ) : (
+              <Link
+                href="/login"
+                onClick={() => setIsOpen(false)}
+                className="text-nav font-sans text-white no-underline py-2.5"
+              >
+                Sign in
               </Link>
             ))}
           </div>

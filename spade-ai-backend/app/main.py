@@ -5,13 +5,17 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from app.api.v1.router import api_router
+from app.core.bootstrap import ensure_admin
+from app.core.map_store import import_map_datasets
 from app.core.config import settings
 
 from contextlib import asynccontextmanager
-from app.core.database import engine, Base
+from app.core.database import engine
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    await ensure_admin()
+    await import_map_datasets()
     yield
     await engine.dispose()
 

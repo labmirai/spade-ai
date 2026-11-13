@@ -1,1 +1,1 @@
-export const API_URL = process.env.EXPO_PUBLIC_API_URL ?? "https://api.spadeai.labmirai.org";
+export const API_URL = process.env.EXPO_PUBLIC_API_URL ?? "https://spadeapi.labmirai.org";
