@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { NAV_LINKS } from '@/constants';
-import { fetchMe, logout, type SessionUser } from '@/lib/api';
+import { canViewMap, fetchMe, logout, type SessionUser } from '@/lib/api';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -67,7 +67,7 @@ export default function Navbar() {
               />
             </Link>
           ))}
-          {ready && user && (
+          {ready && user && canViewMap(user.role) && (
             <Link
               href="/maps/jessore"
               className="relative inline-block px-3 py-1 text-nav font-sans no-underline transition-colors duration-150"
@@ -81,6 +81,23 @@ export default function Navbar() {
                 style={{ transform: hovered === 'Jessore data' ? 'scaleX(1)' : 'scaleX(0)' }}
               />
             </Link>
+          )}
+          {ready && user && (
+            <>
+              <Link
+                href="/profile"
+                className="relative inline-block px-3 py-1 text-nav font-sans no-underline transition-colors duration-150"
+                style={{ color: hovered === 'Profile' ? '#ffffff' : '#9ca3af' }}
+                onMouseEnter={() => setHovered('Profile')}
+                onMouseLeave={() => setHovered(null)}
+              >
+                Profile
+                <span
+                  className="absolute bottom-0 left-3 right-3 h-px bg-white transition-transform duration-200 origin-left"
+                  style={{ transform: hovered === 'Profile' ? 'scaleX(1)' : 'scaleX(0)' }}
+                />
+              </Link>
+            </>
           )}
           {ready && (user ? (
             <button
@@ -132,7 +149,7 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
-            {ready && user && (
+            {ready && user && canViewMap(user.role) && (
               <Link
                 href="/maps/jessore"
                 onClick={() => setIsOpen(false)}
@@ -140,6 +157,17 @@ export default function Navbar() {
               >
                 Jessore data
               </Link>
+            )}
+            {ready && user && (
+              <>
+                <Link
+                  href="/profile"
+                  onClick={() => setIsOpen(false)}
+                  className="text-nav font-sans text-earth-300 no-underline py-2.5 border-t border-earth-700"
+                >
+                  Profile
+                </Link>
+              </>
             )}
             {ready && (user ? (
               <button

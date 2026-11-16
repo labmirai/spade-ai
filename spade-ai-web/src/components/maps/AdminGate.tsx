@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { fetchMe, isAdmin, logout, type SessionUser } from "@/lib/api";
+import { canViewMap, fetchMe, logout, type SessionUser } from "@/lib/api";
 
 type GateState =
   | { status: "loading" }
@@ -23,7 +23,7 @@ export default function AdminGate({ children }: { children: React.ReactNode }) {
           router.replace(`/login?next=${encodeURIComponent(pathname)}`);
           return;
         }
-        setState(isAdmin(user.role) ? { status: "ok", user } : { status: "denied", user });
+        setState(canViewMap(user.role) ? { status: "ok", user } : { status: "denied", user });
       })
       .catch(() => {
         if (!cancelled) router.replace(`/login?next=${encodeURIComponent(pathname)}`);
@@ -41,9 +41,9 @@ export default function AdminGate({ children }: { children: React.ReactNode }) {
     return (
       <div className="main-map main-map--loading">
         <div>
-          <strong>Administrators only</strong>
+          <strong>Map access only</strong>
           <p>
-            {state.user.email} can sign in, but the Jashore map is limited to administrators.
+            {state.user.email} can sign in, but this account cannot open the Jashore map.
           </p>
           <button
             type="button"

@@ -3,7 +3,7 @@
 import { FormEvent, Suspense, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { isAdmin, login, safeNextPath } from "@/lib/api";
+import { canViewMap, isAdmin, login, safeNextPath } from "@/lib/api";
 
 function LoginForm() {
   const router = useRouter();
@@ -25,8 +25,12 @@ function LoginForm() {
         router.replace(next);
         return;
       }
+      if (canViewMap(user.role)) {
+        router.replace(requested?.startsWith("/admin") ? "/maps/jessore" : next);
+        return;
+      }
       const blocked = !requested || requested.startsWith("/maps") || requested.startsWith("/admin");
-      router.replace(blocked ? "/account" : next);
+      router.replace(blocked ? "/profile" : next);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not sign in");
     } finally {

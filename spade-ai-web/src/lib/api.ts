@@ -5,13 +5,20 @@ export type SessionUser = {
   id: number;
   name: string;
   email: string;
+  phone?: string | null;
   role: string;
   is_active: boolean;
+  created_at?: string;
 };
 
 export function isAdmin(role: string): boolean {
   const value = role.toLowerCase();
   return value === "admin" || value.endsWith(".admin");
+}
+
+export function canViewMap(role: string): boolean {
+  const value = role.toLowerCase();
+  return isAdmin(value) || value === "map" || value.endsWith(".map");
 }
 
 export function logout(): void {
@@ -117,7 +124,7 @@ export async function createUser(input: {
   email: string;
   phone?: string;
   password: string;
-  role: "admin" | "user";
+  role: "admin" | "map" | "user";
 }): Promise<ManagedUser> {
   const res = await apiFetch("/api/v1/users", {
     method: "POST",

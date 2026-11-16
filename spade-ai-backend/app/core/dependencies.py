@@ -53,4 +53,5 @@ def require_role(*roles: UserRole):
 
 # Shorthands
 get_admin_user = require_role(UserRole.ADMIN)
-get_any_user   = require_role(UserRole.ADMIN, UserRole.USER)
+get_map_user = require_role(UserRole.ADMIN, UserRole.MAP)
+get_any_user = require_role(UserRole.ADMIN, UserRole.MAP, UserRole.USER)

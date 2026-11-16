@@ -3,7 +3,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import RequireSession, { SignOutButton } from "@/components/auth/RequireSession";
-import { createUser, listUsers, type ManagedUser } from "@/lib/api";
+import { canViewMap, createUser, isAdmin, listUsers, type ManagedUser } from "@/lib/api";
 
 function UsersConsole() {
   const [users, setUsers] = useState<ManagedUser[]>([]);
@@ -11,7 +11,7 @@ function UsersConsole() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState<"user" | "admin">("user");
+  const [role, setRole] = useState<"user" | "map" | "admin">("map");
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
@@ -41,7 +41,7 @@ function UsersConsole() {
       setEmail("");
       setPhone("");
       setPassword("");
-      setRole("user");
+      setRole("map");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not create the account");
     } finally {
@@ -108,11 +108,12 @@ function UsersConsole() {
             Access
             <select
               value={role}
-              onChange={(event) => setRole(event.target.value as "user" | "admin")}
+              onChange={(event) => setRole(event.target.value as "user" | "map" | "admin")}
               className="border border-earth-300 px-3 py-2 text-earth-900 bg-white"
             >
-              <option value="user">User</option>
-              <option value="admin">Administrator, including the Jashore map</option>
+              <option value="map">Map only</option>
+              <option value="user">User, no map</option>
+              <option value="admin">Administrator</option>
             </select>
           </label>
           {error && <p className="text-sm font-sans text-red-700">{error}</p>}
@@ -140,7 +141,9 @@ function UsersConsole() {
                 <tr key={user.id} className="border-b border-earth-100">
                   <td className="px-4 py-2 text-earth-900">{user.name}</td>
                   <td className="px-4 py-2 text-earth-700">{user.email}</td>
-                  <td className="px-4 py-2 text-earth-700">{user.role}</td>
+                  <td className="px-4 py-2 text-earth-700">
+                    {isAdmin(user.role) ? "Administrator" : canViewMap(user.role) ? "Map only" : "User"}
+                  </td>
                 </tr>
               ))}
             </tbody>

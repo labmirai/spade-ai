@@ -36,22 +36,22 @@ export default function RequireSession({
   }, [pathname, router]);
 
   if (!user) {
-    return <main className="min-h-screen bg-earth-50" />;
+    return <div className="min-h-screen bg-earth-50" />;
   }
 
   if (adminOnly && !isAdmin(user.role)) {
     return (
-      <main className="min-h-screen bg-earth-50 flex items-center justify-center px-4">
+      <div className="min-h-screen bg-earth-50 flex items-center justify-center px-4">
         <div className="max-w-md bg-white border border-earth-200 px-6 py-8">
           <h1 className="text-2xl font-serif text-earth-900 mb-2">Administrators only</h1>
           <p className="text-sm font-sans text-earth-600 mb-4">
             Only an administrator can create accounts.
           </p>
-          <Link href="/account" className="text-sm font-sans text-earth-900">
-            Your account
+          <Link href="/profile" className="text-sm font-sans text-earth-900">
+            Your profile
           </Link>
         </div>
-      </main>
+      </div>
     );
   }
 

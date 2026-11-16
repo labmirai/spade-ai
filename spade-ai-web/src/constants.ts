@@ -1,9 +1,9 @@
 // Navigation
 export const NAV_LINKS = [
   { name: 'Home',       href: '/'           },
-  { name: 'About',      href: '#about'      },
-  { name: 'Impact',     href: '#impact'     },
-  { name: 'Team',       href: '#team'       },
+  { name: 'About',      href: '/#about'     },
+  { name: 'Impact',     href: '/#impact'    },
+  { name: 'Team',       href: '/#team'      },
 ];
 
 // Team
@@ -122,7 +122,7 @@ export const FOOTER_LOGOS = [
 
 // Footer - Quick Links
 export const FOOTER_LINKS = [
-  { label: "About",  href: "#about"  },
-  { label: "Impact", href: "#impact" },
-  { label: "Team",   href: "#team"   },
+  { label: "About",  href: "/#about"  },
+  { label: "Impact", href: "/#impact" },
+  { label: "Team",   href: "/#team"   },
 ];

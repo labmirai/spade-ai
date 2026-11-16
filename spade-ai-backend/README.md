@@ -43,13 +43,13 @@ uvicorn app.main:app --reload
 | POST | `/api/v1/auth/refresh` | Refresh access token |
 | GET | `/api/v1/auth/me` | Get current user |
 | GET | `/api/v1/health` | Health check |
-| GET | `/api/v1/maps/jessore/summary` | Jashore nutrient summary (admin) |
-| GET | `/api/v1/maps/jessore/plan` | Field collection plan (admin) |
-| GET | `/api/v1/maps/jessore/layers/{layer}` | GeoJSON layer `districts`, `upazilas`, or `points` (admin) |
+| GET | `/api/v1/maps/jessore/summary` | Jashore nutrient summary (map or admin) |
+| GET | `/api/v1/maps/jessore/plan` | Field collection plan (map or admin) |
+| GET | `/api/v1/maps/jessore/layers/{layer}` | GeoJSON layer `districts`, `upazilas`, or `points` (map or admin) |
 
 Set `ADMIN_EMAIL` and `ADMIN_PASSWORD` (at least 8 characters) before starting the API. On startup the backend creates that account as an administrator if the email is not already registered. The website at `/maps/jessore` loads these datasets through the API after that administrator signs in.
 
-Map documents are stored in the `map_datasets` table. On startup the API copies `data/jessore` into that table, checks the file checksum, and deletes the files. Requests never read the files. Anonymous and non-admin callers get no document body.
+Map documents are stored in the `map_datasets` table. On startup the API copies `data/jessore` into that table, checks the file checksum, and deletes the files. Requests never read the files. Anonymous callers and accounts with the user role get no document body. The map role can read the documents and cannot create accounts.
 
 ## User Model
 
@@ -57,7 +57,7 @@ Map documents are stored in the `map_datasets` table. On startup the API copies 
 - `name` - User name
 - `email` - Unique email
 - `phone` - Optional phone number
-- `role` - User role (admin/user)
+- `role` - User role (`admin`, `map`, or `user`)
 - `is_active` - Account status
 - `hashed_password` - Bcrypt hashed password
 - `created_at` / `updated_at` - Timestamps
